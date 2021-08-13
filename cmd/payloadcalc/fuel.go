@@ -11,10 +11,13 @@ import "fmt"
 //LeftMain     = 1780.000   11926
 //RightMain    = 1780.000   11926
 
+const wingTanksMax float32 = 11926
+const centerTanksMax float32 = 30351
+
 type Fuel struct {
-	centerTank int64
-	leftTank float32
-	rightTank float32
+	centerTank float32
+	leftTank   float32
+	rightTank  float32
 }
 
 func NewFuel() Fuel {
@@ -23,17 +26,25 @@ func NewFuel() Fuel {
 }
 
 func (fuel *Fuel) Load(payload int64) {
-	var wingTanksMax int64 = 11926
-	var centerWeight = payload - (wingTanksMax * 2)
-	fuel.centerTank = centerWeight
-	var leftRight = float32(payload - centerWeight) / 2
-	fuel.leftTank = leftRight
-	fuel.rightTank = leftRight
+
+	var eqWeight = float32(payload) / 3
+
+	if eqWeight > wingTanksMax {
+		fuel.leftTank = wingTanksMax
+		fuel.rightTank = wingTanksMax
+		fuel.centerTank = float32(payload) - (wingTanksMax * 2)
+	} else {
+		fuel.leftTank = eqWeight
+		fuel.rightTank = eqWeight
+		fuel.centerTank = eqWeight
+	}
 }
 
 func (fuel Fuel) Print() {
+	var cprValue = (fuel.centerTank * 100) / centerTanksMax
+	var wprValue = (fuel.leftTank * 100) / wingTanksMax
 	fmt.Println("------------Fuel weights-----------------")
-	fmt.Printf("Center: %d\n", fuel.centerTank)
-	fmt.Printf("Left  : %f\n", fuel.leftTank)
-	fmt.Printf("Right : %f\n", fuel.rightTank)
+	fmt.Printf("Center: %.2f (%.2f%%)\n", fuel.centerTank, cprValue)
+	fmt.Printf("Left  : %.2f (%.2f%%)\n", fuel.leftTank, wprValue)
+	fmt.Printf("Right : %.2f (%.2f%%)\n", fuel.rightTank, wprValue)
 }

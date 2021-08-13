@@ -6,8 +6,6 @@ import (
 	"strconv"
 )
 
-
-
 func PrintUsage() {
 	fmt.Println("Usage:")
 	fmt.Println("\tpayloadcalc BlockOfFuel FuelAtDestination")
@@ -17,24 +15,24 @@ func PrintUsage() {
 func main() {
 	//All weight in lbs
 	var landingWeight int64 = 150000
-	var blockOfFuel int64 = 16000 //must be readed from args
+	var blockOfFuel int64 = 16000      //must be readed from args
 	var fuelAtDestination int64 = 1000 //must be readed from args
 	var emptyWeight int64 = 100700
 	var err error
 
 	if len(os.Args) < 2 {
-		fmt.Println("No filename given. Exiting.")
+		fmt.Println("No weight given. Exiting.")
 		PrintUsage()
 		os.Exit(0)
 	}
 
-	blockOfFuel, err = strconv.ParseInt(os.Args[1], 10 ,32)
+	blockOfFuel, err = strconv.ParseInt(os.Args[1], 10, 32)
 	if err != nil {
 		fmt.Println(err.Error())
 		os.Exit(0)
 	}
 
-	fuelAtDestination, err = strconv.ParseInt(os.Args[2], 10 ,32)
+	fuelAtDestination, err = strconv.ParseInt(os.Args[2], 10, 32)
 	if err != nil {
 		fmt.Println(err.Error())
 		os.Exit(0)
