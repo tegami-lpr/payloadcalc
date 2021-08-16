@@ -8,7 +8,7 @@ import (
 
 func PrintUsage() {
 	fmt.Println("Usage:")
-	fmt.Println("\tpayloadcalc BlockOfFuel FuelAtDestination")
+	fmt.Println("\tpayloadcalc <BlockOfFuel> <FuelAtDestination>")
 	fmt.Println("\tAll weight on lbs")
 }
 
